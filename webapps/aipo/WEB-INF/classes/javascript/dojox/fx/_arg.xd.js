@@ -1,0 +1,9 @@
+dojo._xdResourceLoaded({depends:[["provide","dojox.fx._arg"]],defineResource:function(B){if(!B._hasResource["dojox.fx._arg"]){B._hasResource["dojox.fx._arg"]=true;
+B.provide("dojox.fx._arg");
+dojox.fx._arg.StyleArgs=function(A){this.node=A.node;
+this.cssClass=A.cssClass
+};
+dojox.fx._arg.ShadowResizeArgs=function(A){this.x=A.x;
+this.y=A.y
+}
+}}});

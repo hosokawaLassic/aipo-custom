@@ -1,0 +1,14 @@
+dojo._xdResourceLoaded({depends:[["provide","aipo.io"]],defineResource:function(B){if(!B._hasResource["aipo.io"]){B._hasResource["aipo.io"]=true;
+B.provide("aipo.io");
+aipo.io.loadHtml=function(F,A,E){B.xhrGet({url:F,transport:"ScriptSrcTransport",jsonParamName:"callback",content:A,method:"get",mimetype:"application/json",encoding:"utf-8",load:function(I,C,D,J){B.byId("content-"+E).innerHTML=C.body;
+B.html.setVisibility(B.byId("content-"+E),true);
+B.html.setDisplay(B.byId("indicator-"+E),false)
+},error:function(I,C,D,J){B.byId("content-"+E).innerHTML="\u005b\u30a8\u30e9\u30fc\u005d\u0020\u8aad\u307f\u8fbc\u307f\u304c\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002";
+B.html.setVisibility(B.byId("content-"+E),true);
+B.html.setDisplay(B.byId("indicator-"+E),false)
+},timeout:function(I,C,D,J){B.byId("content-"+E).innerHTML="\u005b\u30a8\u30e9\u30fc\u005d\u0020\u30bf\u30a4\u30e0\u30a2\u30a6\u30c8\u3057\u307e\u3057\u305f\u3002";
+B.html.setVisibility(B.byId("content-"+E),true);
+B.html.setDisplay(B.byId("indicator-"+E),false)
+},timeoutSeconds:10})
+}
+}}});

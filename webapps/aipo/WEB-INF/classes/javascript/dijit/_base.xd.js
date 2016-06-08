@@ -1,0 +1,13 @@
+dojo._xdResourceLoaded({depends:[["provide","dijit._base"],["require","dijit._base.focus"],["require","dijit._base.manager"],["require","dijit._base.place"],["require","dijit._base.popup"],["require","dijit._base.scroll"],["require","dijit._base.sniff"],["require","dijit._base.bidi"],["require","dijit._base.typematic"],["require","dijit._base.wai"],["require","dijit._base.window"]],defineResource:function(B){if(!B._hasResource["dijit._base"]){B._hasResource["dijit._base"]=true;
+B.provide("dijit._base");
+B.require("dijit._base.focus");
+B.require("dijit._base.manager");
+B.require("dijit._base.place");
+B.require("dijit._base.popup");
+B.require("dijit._base.scroll");
+B.require("dijit._base.sniff");
+B.require("dijit._base.bidi");
+B.require("dijit._base.typematic");
+B.require("dijit._base.wai");
+B.require("dijit._base.window")
+}}});

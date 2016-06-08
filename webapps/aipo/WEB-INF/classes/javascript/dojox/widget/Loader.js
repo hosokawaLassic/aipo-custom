@@ -1,0 +1,22 @@
+if(!dojo._hasResource["dojox.widget.Loader"]){dojo._hasResource["dojox.widget.Loader"]=true;
+dojo.provide("dojox.widget.Loader");
+dojo.experimental("dojox.widget.Loader");
+dojo.require("dijit._Widget");
+dojo.require("dijit._Templated");
+dojo.declare("dojox.widget.Loader",[dijit._Widget,dijit._Templated],{loadIcon:dojo.moduleUrl("dojox.widget.Loader","icons/loading.gif"),loadMessage:"Loading ...",hasVisuals:true,attachToPointer:true,duration:125,_offset:16,_pointerConnect:null,_xhrStart:null,_xhrEnd:null,templateString:'<div dojoAttachPoint="loadNode" class="dojoxLoader"><img src="${loadIcon}" class="dojoxLoaderIcon"> <span dojoAttachPoint="loadMessageNode" class="dojoxLoaderMessage"></span></div>',postCreate:function(){if(!this.hasVisuals){this.loadNode.style.display="none"
+}else{if(this.attachToPointer){dojo.removeClass(this.loadNode,"dojoxLoader");
+dojo.addClass(this.loadNode,"dojoxLoaderPointer")
+}this._hide()
+}this._setMessage(this.loadMessage);
+this._xhrStart=dojo.connect(dojo,"_ioSetArgs",this,"_show");
+this._xhrEnd=dojo.connect(dojo.Deferred.prototype,"_fire",this,"_hide")
+},_setMessage:function(B){this.loadMessageNode.innerHTML=B
+},_putLoader:function(B){dijit.placeOnScreen(this.loadNode,{x:B.clientX+this._offset,y:B.clientY+this._offset},["TL","BR"])
+},_show:function(){dojo.publish("Loader",[{message:"started"}]);
+if(this.hasVisuals){if(this.attachToPointer){this._pointerConnect=dojo.connect(document,"onmousemove",this,"_putLoader")
+}dojo.fadeIn({node:this.loadNode,duration:this.duration}).play()
+}},_hide:function(){dojo.publish("Loader",[{message:"ended"}]);
+if(this.hasVisuals){if(this.attachPointer){dojo.disconnect(this._pointerConnect)
+}dojo.fadeOut({node:this.loadNode,duration:this.duration}).play()
+}}})
+};

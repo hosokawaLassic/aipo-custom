@@ -1,0 +1,22 @@
+dojo._xdResourceLoaded({depends:[["provide","dojox.widget.Loader"],["require","dijit._Widget"],["require","dijit._Templated"]],defineResource:function(B){if(!B._hasResource["dojox.widget.Loader"]){B._hasResource["dojox.widget.Loader"]=true;
+B.provide("dojox.widget.Loader");
+B.experimental("dojox.widget.Loader");
+B.require("dijit._Widget");
+B.require("dijit._Templated");
+B.declare("dojox.widget.Loader",[dijit._Widget,dijit._Templated],{loadIcon:B.moduleUrl("dojox.widget.Loader","icons/loading.gif"),loadMessage:"Loading ...",hasVisuals:true,attachToPointer:true,duration:125,_offset:16,_pointerConnect:null,_xhrStart:null,_xhrEnd:null,templateString:'<div dojoAttachPoint="loadNode" class="dojoxLoader"><img src="${loadIcon}" class="dojoxLoaderIcon"> <span dojoAttachPoint="loadMessageNode" class="dojoxLoaderMessage"></span></div>',postCreate:function(){if(!this.hasVisuals){this.loadNode.style.display="none"
+}else{if(this.attachToPointer){B.removeClass(this.loadNode,"dojoxLoader");
+B.addClass(this.loadNode,"dojoxLoaderPointer")
+}this._hide()
+}this._setMessage(this.loadMessage);
+this._xhrStart=B.connect(B,"_ioSetArgs",this,"_show");
+this._xhrEnd=B.connect(B.Deferred.prototype,"_fire",this,"_hide")
+},_setMessage:function(A){this.loadMessageNode.innerHTML=A
+},_putLoader:function(A){dijit.placeOnScreen(this.loadNode,{x:A.clientX+this._offset,y:A.clientY+this._offset},["TL","BR"])
+},_show:function(){B.publish("Loader",[{message:"started"}]);
+if(this.hasVisuals){if(this.attachToPointer){this._pointerConnect=B.connect(document,"onmousemove",this,"_putLoader")
+}B.fadeIn({node:this.loadNode,duration:this.duration}).play()
+}},_hide:function(){B.publish("Loader",[{message:"ended"}]);
+if(this.hasVisuals){if(this.attachPointer){B.disconnect(this._pointerConnect)
+}B.fadeOut({node:this.loadNode,duration:this.duration}).play()
+}}})
+}}});

@@ -1,0 +1,20 @@
+■元ファイル
+http://qiita.com/tukiyo3/items/5ef8f8b225fb33118311
+
+■起動方法
+
+docker run -it -d -p 8080:80 tukiyo3/centos6-aipo7  /bin/bash
+
+docker run -it -v /home/hosokawa/デスクトップ/0.file/aipo/workspace:/usr/local/aipo/  tukiyo3/centos6-aipo7 -d -p 8080:80   /bin/bash
+
+docker run -itd -v /var/www/aipoWorkspace/aipo/webapps:/usr/local/aipo/src/webapps   hosokawa/aipo:ver0.2 /bin/bash
+■中に入る
+docker exec -it e4da9 /bin/bash
+
+■スタートアップコマンド(自動で立ち上がらないときは中で実効)
+/usr/local/aipo/bin
+sh startup.sh 
+http://172.17.0.2:80/aipo/
+
+■buildコマンド
+docker build -t hosokawa/aipo:ver0.2 .

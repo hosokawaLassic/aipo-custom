@@ -1,0 +1,9 @@
+if(!dojo._hasResource["dojox.fx._arg"]){dojo._hasResource["dojox.fx._arg"]=true;
+dojo.provide("dojox.fx._arg");
+dojox.fx._arg.StyleArgs=function(B){this.node=B.node;
+this.cssClass=B.cssClass
+};
+dojox.fx._arg.ShadowResizeArgs=function(B){this.x=B.x;
+this.y=B.y
+}
+};

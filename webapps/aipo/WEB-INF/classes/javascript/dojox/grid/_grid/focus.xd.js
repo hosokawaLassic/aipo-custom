@@ -1,0 +1,61 @@
+dojo._xdResourceLoaded({depends:[["provide","dojox.grid._grid.focus"]],defineResource:function(B){if(!B._hasResource["dojox.grid._grid.focus"]){B._hasResource["dojox.grid._grid.focus"]=true;
+B.provide("dojox.grid._grid.focus");
+B.declare("dojox.grid.focus",null,{constructor:function(A){this.grid=A;
+this.cell=null;
+this.rowIndex=-1;
+B.connect(this.grid.domNode,"onfocus",this,"doFocus")
+},tabbingOut:false,focusClass:"dojoxGrid-cell-focus",focusView:null,initFocusView:function(){this.focusView=this.grid.views.getFirstScrollingView()
+},isFocusCell:function(D,A){return(this.cell==D)&&(this.rowIndex==A)
+},isLastFocusCell:function(){return(this.rowIndex==this.grid.rowCount-1)&&(this.cell.index==this.grid.layout.cellCount-1)
+},isFirstFocusCell:function(){return(this.rowIndex==0)&&(this.cell.index==0)
+},isNoFocusCell:function(){return(this.rowIndex<0)||!this.cell
+},_focusifyCellNode:function(F){var A=this.cell&&this.cell.getNode(this.rowIndex);
+if(A){B.toggleClass(A,this.focusClass,F);
+this.scrollIntoView();
+try{if(!this.grid.edit.isEditing()){dojox.grid.fire(A,"focus")
+}}catch(E){}}},scrollIntoView:function(){if(!this.cell){return 
+}var A=this.cell,J=A.view.scrollboxNode,K={w:J.clientWidth,l:J.scrollLeft,t:J.scrollTop,h:J.clientHeight},H=A.getNode(this.rowIndex),I=A.view.getRowNode(this.rowIndex),L=this.grid.scroller.findScrollTop(this.rowIndex);
+if(H.offsetLeft+H.offsetWidth>K.l+K.w){J.scrollLeft=H.offsetLeft+H.offsetWidth-K.w
+}else{if(H.offsetLeft<K.l){J.scrollLeft=H.offsetLeft
+}}if(L+I.offsetHeight>K.t+K.h){this.grid.setScrollTop(L+I.offsetHeight-K.h)
+}else{if(L<K.t){this.grid.setScrollTop(L)
+}}},styleRow:function(A){if(A.index==this.rowIndex){this._focusifyCellNode(true)
+}},setFocusIndex:function(A,D){this.setFocusCell(this.grid.getCell(D),A)
+},setFocusCell:function(D,A){if(D&&!this.isFocusCell(D,A)){this.tabbingOut=false;
+this.focusGrid();
+this._focusifyCellNode(false);
+this.cell=D;
+this.rowIndex=A;
+this._focusifyCellNode(true)
+}if(B.isOpera){setTimeout(B.hitch(this.grid,"onCellFocus",this.cell,this.rowIndex),1)
+}else{this.grid.onCellFocus(this.cell,this.rowIndex)
+}},next:function(){var F=this.rowIndex,H=this.cell.index+1,A=this.grid.layout.cellCount-1,G=this.grid.rowCount-1;
+if(H>A){H=0;
+F++
+}if(F>G){H=A;
+F=G
+}this.setFocusIndex(F,H)
+},previous:function(){var A=(this.rowIndex||0),D=(this.cell.index||0)-1;
+if(D<0){D=this.grid.layout.cellCount-1;
+A--
+}if(A<0){A=0;
+D=0
+}this.setFocusIndex(A,D)
+},move:function(M,P){var K=this.grid.rowCount-1,A=this.grid.layout.cellCount-1,L=this.rowIndex,N=this.cell.index,J=Math.min(K,Math.max(0,L+M)),O=Math.min(A,Math.max(0,N+P));
+this.setFocusIndex(J,O);
+if(M){this.grid.updateRow(L)
+}},previousKey:function(A){if(this.isFirstFocusCell()){this.tabOut(this.grid.domNode)
+}else{B.stopEvent(A);
+this.previous()
+}},nextKey:function(A){if(this.isLastFocusCell()){this.tabOut(this.grid.lastFocusNode)
+}else{B.stopEvent(A);
+this.next()
+}},tabOut:function(A){this.tabbingOut=true;
+A.focus()
+},focusGrid:function(){dojox.grid.fire(this.focusView,"focus");
+this._focusifyCellNode(true)
+},doFocus:function(A){if(A&&A.target!=A.currentTarget){return 
+}if(!this.tabbingOut&&this.isNoFocusCell()){this.setFocusIndex(0,0)
+}this.tabbingOut=false
+}})
+}}});
